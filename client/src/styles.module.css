@@ -1,0 +1,38 @@
+.button {
+  background: green;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.add_tutorial {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.tutorial_inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.submit_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  border: 2px solid rgb(140 140 140);
+}
+
+th, td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
