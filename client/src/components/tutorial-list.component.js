@@ -39,7 +39,3 @@ export default class TutorialsList extends Component {
     )
   }
 };
-
-// TODO:
-// - Fetch results from the backend.
-// ✓ Render tutorials in the table.
