@@ -1,38 +1,29 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import http from "../http-common";
 
 import AddTutorial from "./add-tutorial.component.js"
 import TutorialList from "./tutorial-list.component.js"
 
-export default class TutorialViewer extends Component {
-    constructor(props) {
-        super(props);
-        this.onAddTutorial = this.onAddTutorial.bind(this);
-        this.onDeleteTutorial = this.onDeleteTutorial.bind(this);
-        this.state = {
-            tutorials: []
-        };
-    }
+function TutorialViewer () {
+    const [tutorials, setTutorials] = useState([]);
 
-    componentDidMount() {
-        this.retrieveTutorials();
-    }
+    useEffect(() => {
+      retrieveTutorials();
+    }, []);
 
-    refreshList() {
-        this.retrieveTutorials();
-    }
-
-    retrieveTutorials() {
+    const retrieveTutorials = () => {
         http.get(`/tutorials`)
           .then(response => {
-            this.setState({
-                tutorials: response.data
-            })
+            setTutorials(response.data);
             console.log("Retrieved tutorials and set state: ", response.data);
         });
     }
 
-    onAddTutorial(title, description, published) {
+    const refreshList = () => {
+        retrieveTutorials();
+    }
+
+    const onAddTutorial = async (title, description, published) => {
         var data = {
           title: title,
           description: description,
@@ -41,30 +32,31 @@ export default class TutorialViewer extends Component {
 
         http.post(`/tutorials`, data)
           .then(response => {
-            this.refreshList();
+            refreshList();
           }).catch(e => {
             console.log(e);
           });
     }
 
-    onDeleteTutorial(row) {
+    const onDeleteTutorial = async (row) => {
         console.log("Want component to delete:", row)
         try {
             http.delete(`/tutorials/${row}`).then(response => {
                 console.log("Delete response:", response);
-                this.refreshList();
+                refreshList();
             });
         } catch (error) {
             console.error(error);
         }
     }
 
-  render() {
-    return (
-      <div>
-          <AddTutorial onAddTutorial={this.onAddTutorial}/>
-          <TutorialList tutorials={this.state.tutorials} deleteRow={this.onDeleteTutorial}/>
-      </div>
-    );
-  }
+  return (
+    <div>
+        <AddTutorial onAddTutorial={onAddTutorial}/>
+        <TutorialList tutorials={tutorials} deleteRow={onDeleteTutorial}/>
+    </div>
+  );
 }
+
+export default TutorialViewer;
+
