@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended: true}));
 initializeDatabase();
 
 app.use("/api", tutorialRoutes);
+app.use("/videos", express.static("videos"));
 
 app.listen(5000, () => {
   console.log("Server running on port 5000");
