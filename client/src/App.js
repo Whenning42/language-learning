@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import 'video.js/dist/video-js.css';
+import 'videojs-hotkeys';
 import VideoJSPlayer from "./components/multi-lang-video";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
