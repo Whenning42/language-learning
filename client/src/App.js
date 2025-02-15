@@ -25,6 +25,7 @@ function App() {
       currentTimeDisplay: true,
       remainingTimeDisplay: true,
     },
+    disablePictureInPicture: true,
   };
 
   return (
