@@ -1,5 +1,6 @@
 server/node_modules/
 project.db
 server/videos/spongebob*
+server/videos/*
 overview.md
 
