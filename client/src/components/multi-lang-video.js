@@ -18,19 +18,10 @@ const VideoJSPlayer = ({ options, onReady }) => {
 
       playerRef.current = videojs(videoElement, options, () => {
         console.log('player is ready');
+        videoElement.volume = 0.5;
         onReady && onReady(playerRef.current);
-      });
 
-      playerRef.current.on("volumechanged", () => {
-        console.log("Volume changed to", videoElement.volume);
-      });
-
-      playerRef.current.on("ready", () => {
-        console.log("Player ready. Volume:", videoElement.volume);
-      });
-
-      playerRef.current.on("play", () => {
-        console.log("Video playing. Volume:", videoElement.volume);
+        console.log("Control bar options:", options.controlBar, playerRef.current.controlBar);
       });
     }
 
