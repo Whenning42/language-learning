@@ -18,7 +18,13 @@ function App() {
     sources: [{
       src: `${backendUrl}/videos/spongebob_s01e01_en.mp4`,
       type: 'video/mp4'
-    }]
+    }],
+    controlBar: {
+      // Note: To show controlBar elements we have to update the css on the controlbar
+      // elements to make them visible. Ref: https://github.com/videojs/video.js/issues/5751.
+      currentTimeDisplay: true,
+      remainingTimeDisplay: true,
+    },
   };
 
   return (
