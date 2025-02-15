@@ -26,6 +26,13 @@ function App() {
       remainingTimeDisplay: true,
     },
     disablePictureInPicture: true,
+    plugins: {
+      hotkeys: {
+        volumeStep: 0.1,
+        seekStep: 5,
+        enableModifiersForNumbers: false,
+      },
+    },
   };
 
   return (
