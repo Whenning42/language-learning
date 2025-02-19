@@ -52,7 +52,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{paddingLeft: "1rem", paddingRight: "1rem"}}>
       <h2>Willkommen zum Sprachgeist</h2>
       <div style={{display: "flex"}}>
         <VideoJSPlayer options={videoJsOptions}/>
