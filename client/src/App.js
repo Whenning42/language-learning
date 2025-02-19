@@ -15,9 +15,9 @@ function App() {
     autoplay: false,
     controls: true,
     responsive: true,
-    fluid: true,
+    fluid: false,
     sources: [{
-      src: `${backendUrl}/videos/spongebob_s01e01_en.mp4`,
+      src: `${backendUrl}/videos/spongebob_s01e02_de.mp4`,
       type: 'video/mp4'
     }],
     controlBar: {
@@ -34,13 +34,28 @@ function App() {
         enableModifiersForNumbers: false,
       },
     },
+    tracks: [
+      {
+        kind: "subtitles",
+        src: `${backendUrl}/videos/spongebob_s01e01_en.vtt`,
+        srcLang: "en",
+        label: "English",
+      },
+      {
+        kind: "subtitles",
+        src: `${backendUrl}/videos/spongebob_s01e01_de_from_transcript.vtt`,
+        srcLang: "de",
+        label: "German",
+        default: false,
+      },
+    ],
   };
 
   return (
     <div>
       <h2>Willkommen zum Sprachgeist</h2>
       <div style={{display: "flex"}}>
-      <VideoJSPlayer options={videoJsOptions}/>
+        <VideoJSPlayer options={videoJsOptions}/>
         <NoteCardEditor/>
       </div>
     </div>

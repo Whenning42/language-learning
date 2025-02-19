@@ -6,6 +6,7 @@
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import "./multi-lang-video.css";
 
 const VideoJSPlayer = ({ options, onReady }) => {
   const videoRef = useRef(null);
