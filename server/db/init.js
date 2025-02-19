@@ -1,5 +1,5 @@
 const sequelize = require("./index.js");
-const User = require("../app/models/tutorial");
+const noteCard = require("../app/models/note_card");
 
 async function initializeDatabase() {
   try {

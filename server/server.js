@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require("express");
 const initializeDatabase = require("./db/init")
 const cors = require("cors");
-const tutorialRoutes = require("./routes/tutorials");
+const noteCardRoutes = require("./routes/note_cards");
 
 const NO_CACHE = process.env.NO_CACHE === "true";
 if (NO_CACHE) {
@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 
 initializeDatabase();
 
-app.use("/api", tutorialRoutes);
+app.use("/api", noteCardRoutes);
 
 const setNoStoreHeader = (req, res, next) => {
     if (NO_CACHE) {
