@@ -23,7 +23,7 @@ function NoteCardsViewer({openInEditor, newInEditor}) {
 
     const mod = (n, m) => {
         if (m == 0) {
-            return 0;
+            return -1;
         }
         return ((n % m) + m) % m;
     }
