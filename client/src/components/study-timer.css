@@ -1,0 +1,38 @@
+.timer-div {
+    text-align: right;
+}
+
+.clock {
+    background-color: #000;      /* Black background */
+    color: #fff;                 /* White text */
+    display: inline-block;
+    padding: 6px 6px 4px;
+    margin: 0px 2px;
+    border-radius: 8px;
+    vertical-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    user-select: none;
+}
+
+
+.timer-button {
+    background-color: #000000; /* Modern blue */
+    color: white; /* White text */
+    border: none; /* No default border */
+    padding: 5.75px 12px; /* Comfortable padding */
+    margin: 2px 2px;
+    font-size: 15px; /* Readable text */
+    font-weight: 600; /* Slightly bold */
+    border-radius: 6px; /* Smooth rounded corners */
+    vertical-align: center;
+}
+  
+.timer-button:hover {
+    background-color: #393939; /* Darker blue on hover */
+}
+  
+.timer-button:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+  

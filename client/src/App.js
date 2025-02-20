@@ -5,6 +5,7 @@ import 'video.js/dist/video-js.css';
 import 'videojs-hotkeys';
 import VideoJSPlayer from "./components/multi-lang-video";
 import NoteCardsPane from "./components/note-cards-pane";
+import StudyTimer from "./components/study-timer";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -58,6 +59,7 @@ function App() {
         <VideoJSPlayer options={videoJsOptions}/>
         <NoteCardsPane/>
       </div>
+      <StudyTimer/>
     </div>
   );
 }
