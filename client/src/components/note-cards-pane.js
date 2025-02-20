@@ -8,6 +8,7 @@ import NoteCardsViewer from "./note-cards-viewer";
 // On viewer edit or new, go to the editor with the corresponding text set.
 
 function NoteCardsPane() {
+    // TODO: Make "new card" in editor set viewer card to the added card.
     const [isInEditor, setIsInEditor] = useState(false);
     const [editorNoteCard, setEditorNoteCard] = useState({});
     const [editorCardIndex, setEditorCardIndex] = useState(0);
