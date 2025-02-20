@@ -51,20 +51,23 @@ function NoteCardsViewer({openInEditor, newInEditor}) {
     }
 
     const onEdit = () => {
-        openInEditor(noteCards[curNoteCard]);
+        openInEditor(noteCards[curNoteCard], curNoteCard, noteCards.length);
     }
 
     const onNew = () => {
-        newInEditor();
+        const newCardI = noteCards.length;
+        const newCardN = noteCards.length + 1;
+        newInEditor(newCardI, newCardN);
     }
 
     const noteCard = noteCards[curNoteCard] || {enText: "", deText: ""};
     return (
         <div style={{border: '1px solid black', flex: 1, display: "flex", flexDirection: "column", padding: ".5rem"}}>
+            <h4>Notecard Viewer</h4>
             <h5>English</h5>
-            <textarea value={noteCard.enText} style={{flex: 1}} readOnly={true}></textarea><br/>
+            <div style={{flex: 1, border: '1px solid gray', padding: "3px"}} readOnly={true}>{noteCard.enText}</div>
             <h5>German</h5>
-            <textarea value={noteCard.deText} style={{flex: 1}} readOnly={true}></textarea><br/>
+            <div style={{flex: 1, border: '1px solid gray', padding: "3px"}} readOnly={true}>{noteCard.deText}</div>
             <div style={{display: "flex", alignItems: "center"}}>
                 <button className="notecard-editor-button" onClick={onPrev}>Prev</button>
                 <button className="notecard-editor-button" onClick={onNext}>Next</button>

@@ -10,15 +10,21 @@ import NoteCardsViewer from "./note-cards-viewer";
 function NoteCardsPane() {
     const [isInEditor, setIsInEditor] = useState(false);
     const [editorNoteCard, setEditorNoteCard] = useState({});
+    const [editorCardIndex, setEditorCardIndex] = useState(0);
+    const [editorNumCards, setEditorNumCards] = useState(0);
 
-    const editCard = (noteCard) => {
+    const editCard = (noteCard, cardI, cardN) => {
         setEditorNoteCard(noteCard);
         setIsInEditor(true);
+        setEditorCardIndex(cardI);
+        setEditorNumCards(cardN);
     }
 
-    const newCard = () => {
+    const newCard = (cardI, cardN) => {
         setEditorNoteCard({});
         setIsInEditor(true);
+        setEditorCardIndex(cardI);
+        setEditorNumCards(cardN);
     }
 
     const exitEditor = () => {
@@ -26,7 +32,7 @@ function NoteCardsPane() {
     }
 
     return isInEditor ?
-        (<NoteCardEditor onExit={exitEditor} editNoteCard={editorNoteCard}/>)
+        (<NoteCardEditor onExit={exitEditor} editNoteCard={editorNoteCard} cardNum={editorCardIndex} totalCards={editorNumCards}/>)
       : (<NoteCardsViewer openInEditor={editCard} newInEditor={newCard}/>);
 }
 

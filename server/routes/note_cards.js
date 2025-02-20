@@ -5,7 +5,7 @@ const NoteCard = require("../app/models/note_card");
 router.post("/note-cards", async (req, res) => {
   try {
     const note_card = await NoteCard.create(req.body);
-    res.status(201).json(tutorial);
+    res.status(201).json(note_card);
   } catch (error) {
     res.status(400).json({error: error.message});
   }
@@ -22,18 +22,31 @@ router.get("/note-cards", async (req, res) => {
   }
 });
 
-// router.delete("/tutorials/:id", async (req, res) => {
-//   const id = req.params.id
-//   try {
-//     console.log("Trying to delete tutorial:", id)
-//     const result = await Tutorial.destroy({where: {id: id}});
-//     if (result === 0) {
-//       return res.status(404).json({message: "Item not found"});
-//     }
-//     res.status(200).json({message: "Delete successful"});
-//   } catch (error) {
-//     res.status(500).json({message: "Delete failed", error: error.message});
-//   }
-// });
+router.put("/note-cards/:id", async (req, res) => {
+  // TODO: Implement this bad boy.
+  const id = req.params.id
+  try {
+    const result = await NoteCard.destroy({where: {id: id}});
+    if (result === 0) {
+      return res.status(404).json({message: "Item not found"});
+    }
+    res.status(200).json({message: "Delete successful"});
+  } catch (error) {
+    res.status(500).json({message: "Delete failed", error: error.message});
+  }
+});
+
+router.delete("/note-cards/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const result = await NoteCard.destroy({where: {id: id}});
+    if (result === 0) {
+      return res.status(404).json({message: "Item not found"});
+    }
+    res.status(200).json({message: "Delete successful"});
+  } catch (error) {
+    res.status(500).json({message: "Delete failed", error: error.message});
+  }
+});
 
 module.exports = router;
