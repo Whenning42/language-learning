@@ -7,11 +7,7 @@ function NoteCardEditor({onExit, editNoteCard, cardNum, totalCards}) {
     const [enText, setEnText] = useState(editNoteCard.enText || '');
     const [deText, setDeText] = useState(editNoteCard.deText || '');
 
-    console.log("Rendering note card editor with editNoteCard:", editNoteCard);
-    console.log("Initial enText value:", enText);
-
     const onChangeEnText = (e) => {
-        console.log("responding to changed en text")
         setEnText(e.target.value);
     }
 
@@ -24,7 +20,6 @@ function NoteCardEditor({onExit, editNoteCard, cardNum, totalCards}) {
     }
 
     const onSave = async () => {
-        console.log(`Submit en: ${enText}, de: ${deText}`);
         const note_card = {
             enText: enText,
             deText: deText
