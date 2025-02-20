@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
-import "./note-card-editor.css"
+import "./note-cards.css"
 import http from "../http-common";
 
-function NoteCardEditor() {
-    const [noteCards, setNoteCards] = useState([]);
-    const [enText, setEnText] = useState('');
-    const [deText, setDeText] = useState('');
+function NoteCardEditor({onExit, editNoteCard}) {
+    const [enText, setEnText] = useState(editNoteCard.enText || '');
+    const [deText, setDeText] = useState(editNoteCard.deText || '');
 
-    useEffect(() => {
-        retrieveNotecards();
-    }, []);
+    console.log("Rendering note card editor with editNoteCard:", editNoteCard);
+    console.log("Initial enText value:", enText);
 
     const onChangeEnText = (e) => {
+        console.log("responding to changed en text")
         setEnText(e.target.value);
     }
 
@@ -20,47 +19,24 @@ function NoteCardEditor() {
         setDeText(e.target.value);
     }
 
-    // const onSwap = () => {
-    //     var en_tmp = enText;
-    //     var de_tmp = deText;
-    //     setEnText(de_tmp);
-    //     setDeText(en_tmp);
-    // }
-
-    const onPrev = () => {
-        console.log("Prev");
+    const onCancel = () => {
+        onExit();
     }
 
-    const onNext = () => {
-        console.log("Next");
-    }
-
-    const onDelete = () => {
-        console.log("TODO: Implement delete!");
-    }
-
-    const onEdit = () => {
-        console.log("TODO: Implement edit!");
-    }
-
-    const onNew = () => {
+    const onSave = async () => {
         console.log(`Submit en: ${enText}, de: ${deText}`);
+        const note_card = {
+            enText: enText,
+            deText: deText
+        };
+        if (editNoteCard.id) {
+            const id = editNoteCard.id;
+            const response = await http.put(`/note-cards/${id}`, note_card)
+        } else {
+            const response = await http.post("/note-cards", note_card);
+        }
+        onExit();
     }
-
-    const retrieveNotecards = () => {
-        http.get("/note-cards")
-            .then(response => {
-                setNoteCards(response.data);
-                console.log("Got notecards:", response.data);
-            });
-    };
-
-    // TODO:
-    // - Implement the notecard backend.
-    //   - Get notecards
-    //   - Create notecard
-    //   - Update notecard
-    //   - Delete notecard
 
     return (
         <div style={{border: '1px solid black', flex: 1, display: "flex", flexDirection: "column", padding: ".5rem"}}>
@@ -68,15 +44,9 @@ function NoteCardEditor() {
             <textarea value={enText} style={{flex: 1}} onChange={onChangeEnText}></textarea><br/>
             <h5>German</h5>
             <textarea value={deText} style={{flex: 1}} onChange={onChangeDeText}></textarea><br/>
-            <div style={{display: "flex", alignItems: "center"}}>
-                <button className="notecard-editor-button" onClick={onPrev}>Prev</button>
-                <button className="notecard-editor-button" onClick={onNext}>Next</button>
-                Card: 0/0
-                <div style={{marginLeft: "auto"}}>
-                    <button className="notecard-editor-button" onClick={onDelete}>Delete</button>
-                    <button className="notecard-editor-button" onClick={onEdit}>Edit</button>
-                    <button className="notecard-editor-button" onClick={onNew}>New</button>
-                </div>
+            <div style={{display: "flex", alignItems: "center", marginLeft: "auto"}}>
+                <button className="notecard-editor-button" onClick={onCancel}>Cancel</button>
+                <button className="notecard-editor-button" onClick={onSave}>Save</button>
             </div>
         </div>
     )

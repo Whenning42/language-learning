@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import 'video.js/dist/video-js.css';
 import 'videojs-hotkeys';
 import VideoJSPlayer from "./components/multi-lang-video";
-import NoteCardEditor from "./components/note-card-editor";
+import NoteCardsPane from "./components/note-cards-pane";
 
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -56,7 +56,7 @@ function App() {
       <h2>Willkommen zum Sprachgeist</h2>
       <div style={{display: "flex"}}>
         <VideoJSPlayer options={videoJsOptions}/>
-        <NoteCardEditor/>
+        <NoteCardsPane/>
       </div>
     </div>
   );
