@@ -23,16 +23,17 @@ router.get("/note-cards", async (req, res) => {
 });
 
 router.put("/note-cards/:id", async (req, res) => {
-  // TODO: Implement this bad boy.
-  const id = req.params.id
   try {
-    const result = await NoteCard.destroy({where: {id: id}});
-    if (result === 0) {
-      return res.status(404).json({message: "Item not found"});
-    }
-    res.status(200).json({message: "Delete successful"});
+    const id = req.params.id
+    const {enText, deText} = req.body;
+    const noteCard = await NoteCard.findByPk(id);
+    noteCard.enText = enText || noteCard.enText;
+    noteCard.deText = deText || noteCard.deText;
+    await noteCard.save();
+    res.status(200).json({message: "Updated note card"});
   } catch (error) {
-    res.status(500).json({message: "Delete failed", error: error.message});
+    console.log(error);
+    res.status(500).json({error: "Note card update failed"});
   }
 });
 
