@@ -15,6 +15,11 @@
     user-select: none;
 }
 
+.paused-clock {
+    outline: 4px solid red;
+    outline-offset: -3px;
+}
+
 
 .timer-button {
     background-color: #000000; /* Modern blue */
