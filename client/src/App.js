@@ -54,7 +54,9 @@ function App() {
 
   return (
     <div style={{paddingLeft: "1rem", paddingRight: "1rem"}}>
-      <h2>Willkommen zum Sprachgeist</h2>
+      <div>
+        Watch N' Learn | <a href="TODO">Home</a> | <a href="TODO">Notecards</a> | 
+      </div>
       <div style={{display: "flex"}}>
         <VideoJSPlayer options={videoJsOptions}/>
         <NoteCardsPane/>
