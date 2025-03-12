@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import "./note-cards.css"
-import http from "../http-common";
+import http from "../../http-common";
 
 function NoteCardEditor({onExit, editNoteCard, cardNum, totalCards}) {
     const [enText, setEnText] = useState(editNoteCard.enText || '');

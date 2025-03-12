@@ -1,0 +1,16 @@
+import React from "react"
+
+function MenuBar() {
+  return (
+    <div>
+      <div>
+        Watch N' Learn| 
+        <a href="/home">Home</a>| 
+        <a href="/media">Media</a>| 
+        <a href="/note-cards">Notecards</a>| 
+      </div>
+    </div>
+  )
+}
+
+export default MenuBar;
