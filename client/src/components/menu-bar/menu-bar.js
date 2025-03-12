@@ -8,6 +8,7 @@ function MenuBar() {
         <a href="/home">Home</a>| 
         <a href="/media">Media</a>| 
         <a href="/note-cards">Notecards</a>| 
+        <a href="/placement-quiz">Placement Quiz</a>| 
       </div>
     </div>
   )
