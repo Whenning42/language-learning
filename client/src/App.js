@@ -1,4 +1,4 @@
-import React from "react";
+import React, {StrictMode} from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,20 +13,21 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 console.log("Using backend url:", backendUrl);
 
 function App() {
-
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout/>}>
-            <Route path="/home" element={<HomePage/>}/>
-            <Route path="/media" element={<MediaPage/>}/>
-            <Route path="/note-cards" element={<StudyNoteCards/>}/>
-            <Route path="/placement-quiz" element={<PlacementQuiz/>}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <StrictMode>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout/>}>
+              <Route path="/home" element={<HomePage/>}/>
+              <Route path="/media" element={<MediaPage/>}/>
+              <Route path="/note-cards" element={<StudyNoteCards/>}/>
+              <Route path="/placement-quiz" element={<PlacementQuiz/>}/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </StrictMode>
   );
 }
 
