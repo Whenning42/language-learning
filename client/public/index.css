@@ -1,0 +1,4 @@
+/* If change, then change index.css in src/ too. */
+body, html {
+  background-color: rgb(245, 245, 245);
+}
