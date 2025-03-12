@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <linearGradient id="color-0" gradientUnits="userSpaceOnUse" bx:pinned="true">
+      <stop style="stop-color: rgb(0, 255, 221)"/>
+    </linearGradient>
+    <bx:export>
+      <bx:file format="png" path="logo_0.png" width="144" height="144"/>
+      <bx:file format="png" href="#object-0" path="Untitled 2.png"/>
+    </bx:export>
+  </defs>
+  <path style="fill: rgb(0, 255, 221); stroke-width: 2px; stroke: rgb(0, 0, 0);" d="M 8.62 55.496 L 123.11 461.206 L 237.6 254.31 L 330.32 460.13 L 460.13 71.122 L 377.89 74.353 L 314.196 279.095 L 230.342 197.198 L 144.073 279.095 L 81.991 63.577 L 8.62 55.496 Z" id="object-0"/>
+</svg>
