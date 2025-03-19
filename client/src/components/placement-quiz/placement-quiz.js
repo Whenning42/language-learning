@@ -1,7 +1,12 @@
 import React, {useEffect, useState, useRef} from "react"
+import { DefaultApi } from '../../analysis_client/api';
+import { Configuration } from '../../analysis_client/configuration';
 
 import "./placement-quiz.css"
-import {authedHttp} from "../../lib/auth-service"
+
+const config = new Configuration({ basePath: 'http://localhost:8000' }); // TODO: This is for dev
+export const apiClient = new DefaultApi(config);
+
 
 function randint(max) {
   return Math.floor(Math.random() * max);
@@ -9,12 +14,14 @@ function randint(max) {
 
 async function get_question(question_num, question_offset) {
     const question_id = question_num + question_offset;
-    var new_word = ""
+    const language = "test_lang";
+
+    var new_word = "";
     try {
-      var res = await authedHttp().get(`/placement-quiz/sample-word/${question_id}`)
-      new_word = res.word;
+      var res = await apiClient.sampleWord(language, question_id);
+      new_word = res.data.word;
     } catch (e) {
-      new_word = "mock_q_" + question_num;
+      console.error(e);
     }
     return {word: new_word, question_num: question_num};
 }
@@ -41,15 +48,20 @@ much of your target language you know.`;
   }, [questions_offset]);
 
 
-  const respond = async (answer) => {
-    const answer = {
+  const submit_answer = async (answer) => {
+    const language = "test_lang";
+    const respond_obj = {
+      language: language,
+      qid: curQuestion['question_num'] + questions_offset.value,
       word: curQuestion['word'],
       answer: answer
     };
 
     try {
-      await authedHttp().put(`/placement-quiz/answers`, answer)
-    } catch (e) {}
+      await apiClient.updatePlacementQuizAnswer(respond_obj)
+    } catch (e) {
+      console.error(e);
+    }
     var new_q = await get_question(curQuestion['question_num'] + 1, questions_offset.current)
     setCurQuestion(new_q);
 
@@ -65,9 +77,9 @@ much of your target language you know.`;
       <div className="quiz-div">
       Do you know the word "{curQuestion['word']}"?
       </div>
-      <button className="quiz-button" onClick={() => respond("yes")}>Yes</button>
-      <button className="quiz-button" onClick={() => respond("sort of")}>Sort of</button>
-      <button className="quiz-button" onClick={() => respond("no")}>No</button>
+      <button className="quiz-button" onClick={() => submit_answer("yes")}>Yes</button>
+      <button className="quiz-button" onClick={() => submit_answer("sort of")}>Sort of</button>
+      <button className="quiz-button" onClick={() => submit_answer("no")}>No</button>
     </div>
   )
 }
