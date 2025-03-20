@@ -1,18 +1,31 @@
 import unittest
 
 import httpx
-from app import app
+from app import app, get_session
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
+from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.pool import StaticPool
 
 
 class ServerTest(unittest.TestCase):
     """A child of unittest.TestCase with added helper asserts."""
 
     def run(self, result=None):
-        with TestClient(app) as client:
-            self.client = client
-            super().run(result)
+        engine = create_engine(
+            "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
+        )
+        SQLModel.metadata.create_all(engine)
+        with Session(engine) as session:
+
+            def get_session_override():
+                return session
+
+            app.dependency_overrides[get_session] = get_session_override
+
+            with TestClient(app) as client:
+                self.client = client
+                super().run(result)
 
     def assertResponse(self, response: httpx.Response, expected: BaseModel):
         self.assertEqual(response.status_code, 200)
