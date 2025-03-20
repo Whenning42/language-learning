@@ -1,12 +1,13 @@
 from datetime import datetime
 
-from app import app
+from app import SessionDep, app
 from common import Language
 from pydantic import BaseModel
+from sqlmodel import Field, SQLModel
 
 
-class PlacementQuiz(BaseModel):
-    quiz_id: int
+class PlacementQuiz(SQLModel, table=True):
+    quiz_id: int | None = Field(default=None, primary_key=True)
     user: int
     language: Language
     start_time: datetime
@@ -19,13 +20,16 @@ class CreatePlacementQuizRequest(BaseModel):
 
 @app.post("/placement-quizzes", response_model=PlacementQuiz)
 async def create_placement_quiz(
-    request: CreatePlacementQuizRequest,
-):
-    # TODO: Mint quiz ID and save this created quiz in the DB
+    request: CreatePlacementQuizRequest, session: SessionDep
+) -> PlacementQuiz:
     placement_quiz = PlacementQuiz(
         language=request.language,
         user=request.user,
-        quiz_id=0,
         start_time=datetime.now(),
     )
+
+    session.add(placement_quiz)
+    session.commit()
+    session.refresh(placement_quiz)
+
     return placement_quiz
