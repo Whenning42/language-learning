@@ -1,7 +1,5 @@
 import unittest
 
-from app import app
-from fastapi.testclient import TestClient
 from placement_quiz.update_placement_quiz_answer import (
     Grade,
     QuizAnswer,
@@ -9,8 +7,6 @@ from placement_quiz.update_placement_quiz_answer import (
     UpdatePlacementQuizAnswerResponse,
 )
 from testing import ServerTest
-
-client = TestClient(app)
 
 
 class UpdatePlacementQuizAnswerTest(ServerTest):
@@ -23,7 +19,7 @@ class UpdatePlacementQuizAnswerTest(ServerTest):
             # query params.
             # e.g.: client.patch("/placement-quiz/10/answers/5", body=request)
             # or: client.patch("/placement-quiz/10/answers/{answer_num}", body=request)
-            client.patch(
+            self.client.patch(
                 "/placement-quizzes/10/answers/5", json=request.model_dump(mode="json")
             ),
             UpdatePlacementQuizAnswerResponse(answer=request.answer),

@@ -5,7 +5,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Session, SQLModel, create_engine
 
-# Start server set up.
+# Start DB set up.
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
@@ -27,13 +27,11 @@ def create_db_and_tables():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Server startup", flush=True)
     create_db_and_tables()
     yield
-    print("Server teardown", flush=True)
 
 
-# End server set up.
+# End DB set up.
 
 
 app = FastAPI(lifespan=lifespan)
