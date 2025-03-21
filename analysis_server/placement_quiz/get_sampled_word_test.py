@@ -8,7 +8,7 @@ from testing import ServerTest
 class GetSampledWordTest(ServerTest):
     def test_sample_request(self):
         request = SampleWordRequest(language=Language.test_lang, qid=3)
-        self.assertResponse(
+        self.assertResponseEqual(
             self.client.get(
                 "/placement-quiz/sample-word", params=request.model_dump(mode="json")
             ),

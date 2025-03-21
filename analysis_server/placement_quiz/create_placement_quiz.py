@@ -7,7 +7,7 @@ from sqlmodel import Field, SQLModel
 
 
 class PlacementQuiz(SQLModel, table=True):
-    quiz_id: int | None = Field(default=None, primary_key=True)
+    quiz_id: int | None = Field(primary_key=True, default=None)
     user: int
     language: Language
     start_time: datetime
