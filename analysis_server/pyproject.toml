@@ -10,10 +10,26 @@ requires-python = ">=3.10,<4.0"
 dependencies = [
     "fastapi[standard] (>=0.115.11,<0.116.0)",
     "httpx (>=0.28.1,<0.29.0)",
-    "sqlmodel (>=0.0.24,<0.0.25)"
+    "sqlmodel (>=0.0.24,<0.0.25)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+    "torch (>=2.6.0,<3.0.0)",
+    "torchvision (>=0.21.0,<0.22.0)",
+    "pyenchant (>=3.2.2,<4.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+
+[tool.poetry.dependencies]
+torch = {source = "pytorch_cpu"}
+torchvision = {source = "pytorch_cpu"}
