@@ -38,10 +38,13 @@ class BlockingSemaphore {
 
   async async_call_with_slot(fn, slot) {
     this.free_slots[slot] = false;
-    var ret = await fn();
-    this.free_slots[slot] = true;
-    this._advance_queue();
-    return ret;
+    try {
+      var ret = await fn();
+      return ret;
+    } finally {
+      this.free_slots[slot] = true;
+      this._advance_queue();
+    }
   }
 }
 

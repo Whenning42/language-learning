@@ -34,3 +34,29 @@ async function test() {
 }
 
 await test();
+
+async function test_exception_safe() {
+  console.log("Starting exception safe test!")
+  var semaphore = new BlockingSemaphore(1);
+
+  const start = Date.now();
+
+  async function f() {
+    throw("exception");
+  }
+
+
+  var slot = null;
+  var r = null;
+
+  slot = await semaphore.acquire()
+  await semaphore.async_call_with_slot(f, slot).catch((e) => {});
+
+  slot = await semaphore.acquire()
+  await semaphore.async_call_with_slot(f, slot).catch((e) => {});
+
+  slot = await semaphore.acquire()
+  await semaphore.async_call_with_slot(f, slot).catch((e) => {});
+}
+
+await test_exception_safe();
