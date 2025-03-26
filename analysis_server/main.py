@@ -1,3 +1,4 @@
+import routes
 from app import app
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
