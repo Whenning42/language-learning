@@ -61,7 +61,6 @@ async def create_placement_quiz_answer(
         PlacementQuizAnswer.quiz_id == answer.quiz_id
     )
     responses = session.exec(statement).all()
-    print("Responses:", responses)
 
     statement = select(PlacementQuiz).where(PlacementQuiz.quiz_id == answer.quiz_id)
     row = session.exec(statement).first()
