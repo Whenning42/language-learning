@@ -1,5 +1,4 @@
 import unittest
-from datetime import datetime
 
 from placement_quiz.create_placement_quiz_answer import Grade, PlacementQuizAnswer
 from testing import ServerTest
@@ -7,6 +6,8 @@ from testing import ServerTest
 
 class UpdatePlacementQuizAnswerTest(ServerTest):
     def test_update_placement_quiz_answer_request(self):
+        # TODO: Create the placement quiz first
+
         request = PlacementQuizAnswer(quiz_id=3, word="person", grade=Grade.correct)
         expected = request.model_copy()
         expected.answer_id = 1
