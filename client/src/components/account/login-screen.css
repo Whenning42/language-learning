@@ -1,0 +1,17 @@
+.login-screen {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.login-spacer {
+    flex-grow: 1;
+}
+
+.login-panel {
+    /* Fixed width and height element */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
