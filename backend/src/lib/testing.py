@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import TypeVar
 
 import httpx
-from app import app, get_session
+from app.app import app, get_session
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
 from sqlmodel import Session, SQLModel, create_engine

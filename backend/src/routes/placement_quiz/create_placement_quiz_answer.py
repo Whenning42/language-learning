@@ -3,11 +3,11 @@ from enum import Enum
 from typing import Annotated, Sequence
 
 import numpy as np
-from app import SessionDep, app
+from app.app import SessionDep, app
 from fastapi import HTTPException, Path
-from placement_quiz.create_placement_quiz import PlacementQuiz
-from placement_quiz.dictionaries import Dictionary, dictionaries
-from placement_quiz.vocab_model_crud import VocabModelCRUD
+from routes.placement_quiz.create_placement_quiz import PlacementQuiz
+from routes.placement_quiz.dictionaries import Dictionary, dictionaries
+from routes.placement_quiz.vocab_model_crud import VocabModelCRUD
 from sqlmodel import Field, SQLModel, select
 
 

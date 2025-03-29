@@ -2,7 +2,7 @@ from datetime import datetime
 
 import numpy as np
 from fastapi import HTTPException
-from placement_quiz.vocab_models import (
+from routes.placement_quiz.vocab_models import (
     ThreeParamLogisticModel,
     VocabMLModel,
     VocabModelClassEnum,

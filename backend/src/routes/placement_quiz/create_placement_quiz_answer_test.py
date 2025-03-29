@@ -1,6 +1,9 @@
 import unittest
 
-from placement_quiz.create_placement_quiz_answer import Grade, PlacementQuizAnswer
+from routes.placement_quiz.create_placement_quiz_answer import (
+    Grade,
+    PlacementQuizAnswer,
+)
 from testing import ServerTest
 
 

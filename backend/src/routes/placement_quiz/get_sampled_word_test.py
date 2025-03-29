@@ -1,7 +1,7 @@
 import unittest
 
 from common import Language
-from placement_quiz.get_sampled_word import SampleWordRequest, SampleWordResponse
+from routes.placement_quiz.get_sampled_word import SampleWordRequest, SampleWordResponse
 from testing import ServerTest
 
 

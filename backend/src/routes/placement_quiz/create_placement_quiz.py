@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from app import SessionDep, app
-from common import Language
+from app.app import SessionDep, app
+from lib.common import Language
 from pydantic import BaseModel
 from sqlmodel import Field, SQLModel
 

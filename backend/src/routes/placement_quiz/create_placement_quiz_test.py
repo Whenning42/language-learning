@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime
 
 from common import Language
-from placement_quiz.create_placement_quiz import (
+from routes.placement_quiz.create_placement_quiz import (
     CreatePlacementQuizRequest,
     PlacementQuiz,
 )
