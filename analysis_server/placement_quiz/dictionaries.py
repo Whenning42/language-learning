@@ -8,9 +8,9 @@ TOP_WORDS = 30_000
 
 LANGS = ["en_US", "de_DE", "fr_FR"]
 word_list_paths = {
-    "en_US": "word_lists/en_freq_1_333333.csv",
-    "de_DE": "word_lists/de_freq_1_15000.csv",
-    "fr_FR": "word_lists/fr_freq_1_50000.csv",
+    "en_US": "data/en_freq_1_333333.csv",
+    "de_DE": "data/de_freq_1_15000.csv",
+    "fr_FR": "data/fr_freq_1_50000.csv",
 }
 words = {
     k: pd.read_csv(v, skipinitialspace=True, nrows=TOP_WORDS)
