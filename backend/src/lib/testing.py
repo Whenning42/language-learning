@@ -29,6 +29,7 @@ class ServerTest(unittest.TestCase):
 
             with TestClient(app) as client:
                 self.client = client
+                self.session = session
                 super().run(result)
 
     def assertModelEqual(self, actual: M, expected: M) -> None:
@@ -42,7 +43,7 @@ class ServerTest(unittest.TestCase):
     def assertResponseEqual(
         self, response: httpx.Response, expected: BaseModel
     ) -> None:
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, response.content)
         expected_model = expected.__class__
         actual = expected_model.model_validate(response.json())
         self.assertModelEqual(actual, expected)
