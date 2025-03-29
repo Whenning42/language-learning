@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
     "ajv": "^8.17.1",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
@@ -21,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "openapi-ts": "which openapi-ts -d --input 'http://localhost:8000/openapi.json' --output ./client_2.js --client @hey-api/client-axios",
+    "openapi-generator-cli": "openapi-generator-cli generate -i http://localhost:8000/openapi.json -g typescript-axios -o ./src/analysis_client"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +46,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@hey-api/openapi-ts": "^0.64.13",
+    "@openapitools/openapi-generator-cli": "^2.18.4",
+    "typescript": "^5.8.2"
   }
 }
