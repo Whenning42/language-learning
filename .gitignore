@@ -5,3 +5,4 @@ server/videos/*
 overview.md
 domains.txt
 analysis_server/*.db
+*.db
