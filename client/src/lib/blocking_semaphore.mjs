@@ -15,7 +15,7 @@ class BlockingSemaphore {
   }
 
   async _advance_queue() {
-    if (this.wait_queue.length == 0) {
+    if (this.wait_queue.length === 0) {
       return;
     }
 
@@ -26,13 +26,13 @@ class BlockingSemaphore {
 
   async acquire() {
     var free_slot = this._get_first_free_slot();
-    if (free_slot == -1) {
+    if (free_slot === -1) {
       const wait = new Promise((resolve, reject) => { this.wait_queue.push(resolve) });
       await wait;
       free_slot = this._get_first_free_slot();
     }
 
-    console.assert(free_slot != -1);
+    console.assert(free_slot !== -1);
     return free_slot;
   }
 
