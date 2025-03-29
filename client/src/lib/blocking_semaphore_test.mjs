@@ -60,3 +60,22 @@ async function test_exception_safe() {
 }
 
 await test_exception_safe();
+
+async function test_non_int_slot() {
+  console.log("Starting non int test")
+  var semaphore = new BlockingSemaphore(1);
+
+  const start = Date.now();
+
+  async function f() {
+    return;
+  }
+
+  var exceptions = 0;
+  await semaphore.async_call_with_slot(f, 0.5).catch((e) => {exceptions += 1;});
+  await semaphore.async_call_with_slot(f, "a str slot").catch((e) => {exceptions += 1;});
+
+  console.log("Caught", exceptions, "attempts to call with non-int slot.");
+}
+
+await test_non_int_slot();

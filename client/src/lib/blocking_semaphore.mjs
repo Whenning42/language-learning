@@ -37,6 +37,10 @@ class BlockingSemaphore {
   }
 
   async async_call_with_slot(fn, slot) {
+    if (!Number.isInteger(slot)) {
+      throw new Error("Semaphore slots must be integers. Requested slot:", slot);
+    }
+
     this.free_slots[slot] = false;
     try {
       var ret = await fn();
