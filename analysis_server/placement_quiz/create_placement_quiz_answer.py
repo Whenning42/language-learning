@@ -39,11 +39,12 @@ def get_xys(
 
 
 @app.post(
-    "/placement-quizzes/{quiz_id}/answers",
+    "/placement-quizzes/{quiz_id}/answers/{question_num}",
     response_model=PlacementQuizAnswer,
 )
 async def create_placement_quiz_answer(
     quiz_id: Annotated[int, Path()],
+    question_num: Annotated[int, Path()],
     answer: PlacementQuizAnswer,
     session: SessionDep,
 ):

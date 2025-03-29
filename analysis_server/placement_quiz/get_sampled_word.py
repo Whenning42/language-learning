@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from app import SessionDep, app
-from fastapi import Query
+from fastapi import HTTPException, Query
 from placement_quiz.create_placement_quiz import PlacementQuiz
 from placement_quiz.dictionaries import dictionaries
 from placement_quiz.vocab_model_crud import VocabModelCRUD
@@ -28,19 +28,22 @@ class SampleWordResponse(BaseModel):
     word: str
 
 
-@app.get("/placement-quiz/sample-word", response_model=SampleWordResponse)
+@app.post("/placement-quiz/sample-word", response_model=SampleWordResponse)
 async def sample_word(
     request: Annotated[SampleWordRequest, Query()], session: SessionDep
 ):
     vocab_model = VocabModelCRUD.load(
-        session, request.quiz_id, request.question_num - 1
+        session, request.quiz_id, request.question_num - 2
     )
     sampled_x = vocab_model.sample(request.quiz_id * 72341 + request.question_num)
 
     statement = select(PlacementQuiz).where(PlacementQuiz.quiz_id == request.quiz_id)
     row = session.exec(statement).first()
     if row is None:
-        raise ValueError("Couldn't find a placement quiz with id:", request.quiz_id)
+        raise HTTPException(
+            status_code=404,
+            detail=f"Couldn't find a placement quiz with id: {request.quiz_id}",
+        )
     dictionary = dictionaries[row.language.value]
 
     return {"word": dictionary.get_float_offset(sampled_x)}
