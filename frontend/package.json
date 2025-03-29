@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "openapi-ts": "which openapi-ts -d --input 'http://localhost:8000/openapi.json' --output ./client_2.js --client @hey-api/client-axios",
-    "openapi-generator-cli": "openapi-generator-cli generate -i http://localhost:8000/openapi.json -g typescript-axios -o ./src/analysis_client"
+    "openapi-generator-cli": "openapi-generator-cli generate -i http://localhost:8000/openapi.json -g typescript-axios -o ./src/backend_client"
   },
   "eslintConfig": {
     "extends": [

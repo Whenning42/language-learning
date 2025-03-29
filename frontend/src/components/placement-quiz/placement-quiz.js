@@ -1,6 +1,6 @@
 import React, {useEffect, useContext, useState} from "react"
-import { DefaultApi } from '../../analysis_client/api';
-import { Configuration } from '../../analysis_client/configuration';
+import { DefaultApi } from '../../backend_client/api';
+import { Configuration } from '../../backend_client/configuration';
 import BlockingSemaphore from "../../lib/blocking_semaphore.mjs";
 
 import "./placement-quiz.css"

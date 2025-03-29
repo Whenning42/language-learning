@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import "./note-cards.css"
-import http from "../../http-common";
+import http from "../../lib/http-common";
 
 function NoteCardsViewer({openInEditor, newInEditor}) {
     const [curNoteCard, setCurNoteCard] = useState(0);
