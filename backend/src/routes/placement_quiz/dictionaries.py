@@ -2,6 +2,7 @@ from collections import defaultdict
 
 import enchant
 import pandas as pd
+from lib.common import Language
 from tqdm import tqdm
 
 TOP_WORDS = 30_000
@@ -16,6 +17,9 @@ words = {
     k: pd.read_csv(v, skipinitialspace=True, nrows=TOP_WORDS)
     for k, v in word_list_paths.items()
 }
+words[Language.test_lang.value] = pd.DataFrame.from_dict(
+    {"word": ["test_word_1", "test_word_2"], "count": [2, 1]}
+)
 for k, v in words.items():
     v["word"] = v["word"].map(str)
     v["count"] = v["count"].map(int)
@@ -40,10 +44,12 @@ dicts = {l: enchant.Dict(l) for l in LANGS}
 
 cleaned_words = {}
 for l, wl in words.items():
-    lang_dict = dicts[l]
+    lang_dict = None
+    if l != Language.test_lang.value:
+        lang_dict = dicts[l]
 
     def normalizer(word):
-        if not lang_dict.check(word):
+        if lang_dict and not lang_dict.check(word):
             return ""
         return word.lower()
 
