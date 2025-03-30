@@ -1,16 +1,13 @@
 from contextlib import asynccontextmanager
 from typing import Annotated
 
+from db import connection
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel import Session, SQLModel
 
 # Start DB set up.
-sqlite_file_name = "data/database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
-
-connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, connect_args=connect_args)
+engine = connection.get_engine()
 
 
 def get_session():
@@ -21,17 +18,10 @@ def get_session():
 SessionDep = Annotated[Session, Depends(get_session)]
 
 
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    create_db_and_tables()
+    connection.create_db_and_tables(engine)
     yield
-
-
-# End DB set up.
 
 
 app = FastAPI(lifespan=lifespan)
