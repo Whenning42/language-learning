@@ -36,19 +36,24 @@ def transcribe_vtt(doc: Document) -> str:
         raise ValueError("No file at:", doc.path)
 
     # Get the video's audio.
-    command = f"ffmpeg -y -i {doc.path} -ab 160k -ac 2 -ar 44100 -vn audio.mp3"
+    tmp_dir = "data/tmp"
+    if not os.path.exists(tmp_dir):
+        os.mkdir(tmp_dir)
+    audio_path = os.path.join(tmp_dir, "audio.mp3")
+    command = f"ffmpeg -y -i {doc.path} -ab 160k -ac 2 -ar 44100 -vn {audio_path}"
     subprocess.run(shlex.split(command), check=True)
 
     # Print the silent sections of the audio:
-    full_audio = pydub.AudioSegment.from_mp3("audio.mp3")
+    full_audio = pydub.AudioSegment.from_mp3("data/tmp/audio.mp3")
     silences = silence.detect_silence(full_audio, min_silence_len=500, seek_step=20)
     segment_idxs = get_target_len_silent_segments(60 * 1_000, silences)
 
     full_response_text = ""
     for start, end in tqdm.tqdm(segment_idxs):
         audio = full_audio[start:end]
-        audio.export("segment.mp3", format="mp3")
-        myfile = client.files.upload(file="segment.mp3")
+        segment_path = os.path.join(tmp_dir, "segment.mp3")
+        audio.export(segment_path, format="mp3")
+        myfile = client.files.upload(file="data/tmp/segment.mp3")
 
         # TODO: Get VTT formatted timestamps. I've got this commented out, since the
         # VTT formatted seemed like it might be reducing transcription accuracy, and we
