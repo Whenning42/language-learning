@@ -1,8 +1,11 @@
-server/node_modules/
+backend/.env
+frontend/node_modules/
 project.db
-server/videos/spongebob*
-server/videos/*
+backend/data/videos/spongebob*
+backend/data/videos/*
 overview.md
 domains.txt
 analysis_server/*.db
 *.db
+trash/
+data/tmp/
