@@ -8,4 +8,4 @@ domains.txt
 analysis_server/*.db
 *.db
 trash/
-data/tmp/
+backend/data/tmp/
