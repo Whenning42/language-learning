@@ -36,19 +36,29 @@ def process_doc(doc: Document) -> Document:
 
 
 if __name__ == "__main__":
-    # doc = Document(
-    #     doc_type=DocType.video, path="data/test/test.mp4", doc_name="test doc 1"
-    # )
     doc = Document(
-        doc_type=DocType.video,
-        path="data/videos/spongebob_s01e01_de.mp4",
-        doc_name="Spongebob S01E01 de-DE",
+        doc_type=DocType.video, path="data/test/test.mp4", doc_name="test doc 1"
     )
-    process_doc(doc)
-    print(doc.model_dump_json(indent=4))
+    # doc = Document(
+    #     doc_type=DocType.video,
+    #     path="data/videos/spongebob_s01e01_de.mp4",
+    #     doc_name="Spongebob S01E01 de-DE",
+    # )
+    doc = process_doc(doc)
 
     engine = connection.get_engine()
     connection.create_db_and_tables(engine)
     with Session(engine) as session:
-        session.add(doc)
+        session.merge(doc)
         session.commit()
+
+    # Example code for looking up docs:
+    # with Session(engine) as session:
+    #     statement = select(Document)
+    #     docs = session.exec(statement).all()
+
+    #     print(f"Found {len(docs)} docs")
+
+    #     for doc in docs:
+    #         doc.processed_doc = None
+    #         print(doc.model_dump_json(indent=2))
