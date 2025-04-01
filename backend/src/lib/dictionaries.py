@@ -59,14 +59,21 @@ for l, wl in words.items():
 class Dictionary:
     def __init__(self, word_list: pd.DataFrame):
         self.word_list = word_list
+        self.words = set(word_list["word"])
 
     def get_float_offset(self, x: float) -> str:
         i = int(x * len(self.word_list)) % len(self.word_list)
         return self.word_list["word"].iloc[i]
 
     def get_word_float_offset(self, word: str) -> float:
-        offset_i = (self.word_list["word"] == word).index[0]
+        offset_i = self.word_list[self.word_list["word"] == word].index[0]
         return offset_i / len(self.word_list["word"])
+
+    def __len__(self):
+        return len(self.word_list)
+
+    def __contains__(self, word):
+        return word in self.words
 
 
 dictionaries = {}
