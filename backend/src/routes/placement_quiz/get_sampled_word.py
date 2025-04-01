@@ -2,9 +2,9 @@ from typing import Annotated
 
 from app.app import SessionDep, app
 from fastapi import HTTPException, Query
+from lib.dictionaries import dictionaries
 from pydantic import BaseModel, Field
 from routes.placement_quiz.create_placement_quiz import PlacementQuiz
-from routes.placement_quiz.dictionaries import dictionaries
 from routes.placement_quiz.vocab_model_crud import VocabModelCRUD
 from sqlmodel import select
 
