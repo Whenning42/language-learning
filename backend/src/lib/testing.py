@@ -1,3 +1,4 @@
+import json
 import unittest
 from datetime import datetime
 from typing import TypeVar
@@ -10,6 +11,14 @@ from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
 M = TypeVar("M", bound=BaseModel)
+
+
+def assertModelEqual(test, actual: M, expected: M) -> None:
+    test.assertEqual(actual.__class__, expected.__class__)
+    test.assertEqual(
+        json.dumps(actual.model_dump(), indent=2, sort_keys=True),
+        json.dumps(expected.model_dump(), indent=2, sort_keys=True),
+    )
 
 
 class ServerTest(unittest.TestCase):
@@ -33,8 +42,7 @@ class ServerTest(unittest.TestCase):
                 super().run(result)
 
     def assertModelEqual(self, actual: M, expected: M) -> None:
-        self.assertEqual(actual.__class__, expected.__class__)
-        self.assertEqual(actual.model_dump(), expected.model_dump())
+        assertModelEqual(self, actual, expected)
 
     def assertResponseAndGetModel(self, response: httpx.Response, model: type[M]) -> M:
         self.assertEqual(response.status_code, 200)
