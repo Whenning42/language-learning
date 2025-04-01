@@ -1,20 +1,20 @@
-import json
+import os
 
 from sqlmodel import SQLModel, create_engine
 
 
-def custom_serializer(d):
-    return json.dumps(d, default=lambda v: v.json())
-
-
-def get_engine():
-    sqlite_file_name = "data/database.db"
-    sqlite_url = f"sqlite:///{sqlite_file_name}"
+def get_engine(db_path="data/database.db"):
+    sqlite_url = f"sqlite:///{db_path}"
 
     connect_args = {"check_same_thread": False}
-    return create_engine(
-        sqlite_url, connect_args=connect_args, json_serializer=custom_serializer
-    )
+    return create_engine(sqlite_url, connect_args=connect_args)
+
+
+def get_test_engine():
+    test_db_path = "data/tmp/test.db"
+    if os.path.exists(test_db_path):
+        os.remove(test_db_path)
+    return get_engine(db_path="data/tmp/test.db")
 
 
 def create_db_and_tables(engine):
