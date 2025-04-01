@@ -2,6 +2,7 @@ from datetime import datetime
 
 import numpy as np
 from fastapi import HTTPException
+from lib.common import Language
 from routes.placement_quiz.vocab_models import (
     ThreeParamLogisticModel,
     VocabMLModel,
@@ -20,6 +21,10 @@ class VocabModel(SQLModel, table=True):
 
 def _make_question_key(quiz_id: int, question_num: int) -> str:
     return f"pq_{quiz_id}_{question_num}"
+
+
+def _make_latest_user_model_key(language: Language, user: int) -> str:
+    return f"user_{user}_latest_{language.value}"
 
 
 def get_vocab_model(session, key):
@@ -74,8 +79,19 @@ class VocabModelCRUD:
 
         return VocabModelCRUD._load(session, _make_question_key(quiz_id, question_num))
 
+    @staticmethod
+    def load_latest(
+        session: Session, language: Language, user: int
+    ) -> "VocabModelCRUD":
+        return VocabModelCRUD._load(
+            session, _make_latest_user_model_key(language, user)
+        )
+
     def store(self, quiz_id: int, question_num: int) -> None:
         self._store(_make_question_key(quiz_id, question_num))
+
+    def store_latest(self, language: Language, user: int) -> None:
+        self._store(_make_latest_user_model_key(language, user))
 
     def update(self, xs: np.ndarray, ys: np.ndarray):
         self.model.fit(xs, ys)

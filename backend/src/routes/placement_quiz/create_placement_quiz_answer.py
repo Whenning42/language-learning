@@ -5,8 +5,8 @@ from typing import Annotated, Sequence
 import numpy as np
 from app.app import SessionDep, app
 from fastapi import HTTPException, Path
+from lib.dictionaries import Dictionary, dictionaries
 from routes.placement_quiz.create_placement_quiz import PlacementQuiz
-from routes.placement_quiz.dictionaries import Dictionary, dictionaries
 from routes.placement_quiz.vocab_model_crud import VocabModelCRUD
 from sqlmodel import Field, SQLModel, select
 
@@ -64,7 +64,7 @@ async def create_placement_quiz_answer(
     responses = session.exec(statement).all()
 
     statement = select(PlacementQuiz).where(PlacementQuiz.quiz_id == answer.quiz_id)
-    row = session.exec(statement).first()
+    row: PlacementQuiz = session.exec(statement).first()
     if row is None:
         raise ValueError("Couldn't find a placement quiz with id:", answer.quiz_id)
     dictionary = dictionaries[row.language.value]
@@ -72,6 +72,7 @@ async def create_placement_quiz_answer(
     x, y = get_xys(responses, dictionary)
     vocab_model.update(x, y)
     vocab_model.store(answer.quiz_id, answer.question_num)
+    vocab_model.store_latest(row.language, row.user)
 
     session.add(answer)
     session.commit()
