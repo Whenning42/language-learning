@@ -6,6 +6,12 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
+// Set up the DB.
+import * as SQLite from 'expo-sqlite';
+import { drizzle } from 'drizzle-orm/expo-sqlite';
+const expo = SQLite.openDatabaseSync('db.db');
+const db = drizzle(expo);
+
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
