@@ -1,14 +1,14 @@
 import {useState, useEffect} from 'react';
 import {View, StyleSheet, Button} from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
-import { useRouter } from 'expo-router';
+import { useNavigation } from 'expo-router';
 
 
 const start_color = "#009900";
 const pause_color = "#ffaa00";
 
 export default function ActivityScreen() {
-  const router = useRouter();
+  const navigation = useNavigation();
   const goal_time = "30:00";
 
   const [clock, setClock] = useState({
@@ -59,7 +59,7 @@ export default function ActivityScreen() {
           <Button
             title="End"
             color="#cc0000"
-            onPress={() => {router.navigate("/finish_activity")}}/>
+            onPress={() => {navigation.navigate("finish_activity", {session_length_minutes: clock.cur_time / 60})}}/>
         </View>
       </View>
     </View>
