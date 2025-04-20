@@ -9,3 +9,5 @@ analysis_server/*.db
 *.db
 trash/
 backend/data/tmp/
+
+mobile_app/language-learning/android
