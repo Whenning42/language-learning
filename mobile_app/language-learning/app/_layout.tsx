@@ -9,6 +9,11 @@ import 'react-native-reanimated';
 // Set up the DB.
 import * as SQLite from 'expo-sqlite';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
+import { sessions_table } from '../db/schema';
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
+import migrations from '../drizzle/migrations';
+
 const expo = SQLite.openDatabaseSync('db.db');
 const db = drizzle(expo);
 
@@ -22,6 +27,22 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  const { success, error } = useMigrations(db, migrations);
+  useEffect(() => {
+    async function initialize_db() {
+      await db.delete(sessions_table);
+      await db.insert(sessions_table).values([{
+          end_time: 100,
+          length_minutes: 22.5,
+          achieved_goal: true,
+          rated_difficulty: "medium"
+        }]);
+    }
+    initialize_db();
+  }, [success]);
+
+  useDrizzleStudio(expo);
 
   useEffect(() => {
     if (loaded) {
