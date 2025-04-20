@@ -39,7 +39,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="activities"
+        name="activity_log"
         options={{
           title: 'Activities',
         }}
