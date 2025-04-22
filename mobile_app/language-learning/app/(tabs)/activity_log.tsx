@@ -2,10 +2,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db_context } from '../db_provider';
 
-import * as SQLite from 'expo-sqlite';
-import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { sessions_table } from '../../db/schema';
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useFocusEffect } from 'expo-router';
 
 export function render_session(session) {
