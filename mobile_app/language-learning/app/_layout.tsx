@@ -31,13 +31,7 @@ export default function RootLayout() {
   const { success, error } = useMigrations(db, migrations);
   useEffect(() => {
     async function initialize_db() {
-      await db.delete(sessions_table);
-      await db.insert(sessions_table).values([{
-          end_time: 100,
-          length_minutes: 22.5,
-          achieved_goal: true,
-          rated_difficulty: "medium"
-        }]);
+      // We'd do any desired migrations here.
     }
     initialize_db();
   }, [success]);

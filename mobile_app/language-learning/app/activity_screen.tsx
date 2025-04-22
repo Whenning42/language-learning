@@ -9,7 +9,7 @@ const pause_color = "#ffaa00";
 
 export default function ActivityScreen() {
   const navigation = useNavigation();
-  const goal_time = "30:00";
+  const goal_time = "25:00";
 
   const [clock, setClock] = useState({
     cur_time: 0,
@@ -49,7 +49,7 @@ export default function ActivityScreen() {
 
   return (
     <View>
-      <ThemedText>Goal: Study for 30 minutes.</ThemedText>
+      <ThemedText>Goal: Study for 25 minutes.</ThemedText>
       <ThemedText>{current_time} / {goal_time}</ThemedText>
       <View style={styles.button_container}>
         <View style={styles.button}>

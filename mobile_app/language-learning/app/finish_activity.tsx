@@ -25,7 +25,7 @@ export default function FinishActivityScreen () {
       end_time: Math.round((new Date()).getTime() / 1000),
       length_minutes: Number(params.session_length_minutes),
       achieved_goal: Boolean(achieved_goal),
-      difficulty: difficulty,
+      rated_difficulty: difficulty,
     }
     console.log("Finished session:", session);
     await db.insert(sessions_table).values([session]);
