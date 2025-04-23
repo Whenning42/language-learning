@@ -3,6 +3,8 @@ const { getDefaultConfig } = require('expo/metro-config');
 
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
+
 config.resolver.sourceExts.push('sql');
+config.resolver.blockList = [new RegExp('\.test\.tsx$'), new RegExp('db_provider_test.tsx')];
 
 module.exports = config;

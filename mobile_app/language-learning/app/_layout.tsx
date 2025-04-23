@@ -6,18 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-// Set up the DB.
-import * as SQLite from 'expo-sqlite';
-import { drizzle } from 'drizzle-orm/expo-sqlite';
-import { sessions_table } from '../db/schema';
-import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
-import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
-import migrations from '../drizzle/migrations';
-
-const expo = SQLite.openDatabaseSync('db.db');
-const db = drizzle(expo);
-
 import { useColorScheme } from '@/hooks/useColorScheme';
+import DBProvider from './db_provider';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,16 +17,6 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
-
-  const { success, error } = useMigrations(db, migrations);
-  useEffect(() => {
-    async function initialize_db() {
-      // We'd do any desired migrations here.
-    }
-    initialize_db();
-  }, [success]);
-
-  useDrizzleStudio(expo);
 
   useEffect(() => {
     if (loaded) {

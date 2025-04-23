@@ -1,9 +1,8 @@
 import { ThemedText } from '@/components/ThemedText';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { db_context } from '../db_provider';
-
+import { db_context } from '../db_context';
 import { sessions_table } from '../../db/schema';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import { useFocusEffect } from 'expo-router';
 
 export function render_session(session) {
@@ -24,13 +23,10 @@ export default function ActivityLogScreen() {
   const [sessions, set_sessions] = useState([]);
   const db = useContext(db_context);
 
-  console.log("Rendering activity log with db:", db !== null);
-
   useFocusEffect(
-    // Used to be wrapped in a useCallback, why?
+    useCallback(
     () => {
       async function f() {
-        console.log("Fetching activities with db:", db !== null);
         if (db === null) {
           return;
         }
@@ -40,7 +36,9 @@ export default function ActivityLogScreen() {
       }
 
       f();
-    }, [db]);
+    }, [db])
+  );
+
 
   const rendered_sessions = sessions.map(
     session => 

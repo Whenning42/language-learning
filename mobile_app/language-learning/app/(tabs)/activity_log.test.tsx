@@ -5,15 +5,14 @@ jest.mock('expo-router', () => {
   const actualModule = jest.requireActual('expo-router');
   return {
     ...actualModule,
-    useFocusEffect: useEffect,
+    useFocusEffect: (f) => { useEffect(f, [f]) },
   };
 });
 
 import { render, screen, waitFor } from '@testing-library/react-native';
 import ActivityLogScreen, { render_session } from './activity_log';
-import { open_test_db } from '../db_provider';
 import { sessions_table } from '../../db/schema'
-import DBProvider from '../db_provider'
+import DBProviderTest, {get_db} from '../db_provider_test'
 
 test('ActivityLogScreen session renders', async () => {
   const date_seconds = new Date(2025, 3, 20, 10, 5, 17, 18).getTime() / 1000;
@@ -29,7 +28,7 @@ test('ActivityLogScreen session renders', async () => {
 });
 
 test('ActivityLogScreen renders all sessions in the db', async () => {
-  const db = await open_test_db();
+  const db = get_db();
   await db.delete(sessions_table);
   const end_1 = new Date(2025, 3, 20, 10, 5, 17, 18).getTime() / 1000;
   const end_2 = new Date(2025, 3, 22, 10, 5, 17, 18).getTime() / 1000;
@@ -50,9 +49,9 @@ test('ActivityLogScreen renders all sessions in the db', async () => {
 
   const on_db_init = jest.fn(() => {});
   render(
-    <DBProvider use_test_db={true}>
+    <DBProviderTest>
       <ActivityLogScreen/>
-    </DBProvider>
+    </DBProviderTest>
   );
   // Wait for sessions to be visible on the screen before running our assertions below.
   await waitFor(() => 
