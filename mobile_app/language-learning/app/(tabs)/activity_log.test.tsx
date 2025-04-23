@@ -1,18 +1,8 @@
-// Mock useFocusEffect to useEffect so our tests can run without the expo-router,
-// for which I never found a way to set up in unit tests.
-jest.mock('expo-router', () => {
-  const { useEffect } = require('react');
-  const actualModule = jest.requireActual('expo-router');
-  return {
-    ...actualModule,
-    useFocusEffect: (f) => { useEffect(f, [f]) },
-  };
-});
-
 import { render, screen, waitFor } from '@testing-library/react-native';
 import ActivityLogScreen, { render_session } from './activity_log';
-import { sessions_table } from '../../db/schema'
-import DBProviderTest, {get_db} from '../db_provider_test'
+import { sessions_table } from '../../db/schema';
+import DBProviderTest, {get_db} from '../db_provider_test';
+import { renderRouter } from 'expo-router/testing-library';
 
 test('ActivityLogScreen session renders', async () => {
   const date_seconds = new Date(2025, 3, 20, 10, 5, 17, 18).getTime() / 1000;
@@ -48,11 +38,12 @@ test('ActivityLogScreen renders all sessions in the db', async () => {
   await db.insert(sessions_table).values(sessions);
 
   const on_db_init = jest.fn(() => {});
-  render(
-    <DBProviderTest>
-      <ActivityLogScreen/>
-    </DBProviderTest>
-  );
+  renderRouter({
+    index: jest.fn(() =>
+      <DBProviderTest>
+        <ActivityLogScreen/>
+      </DBProviderTest>)
+  });
   // Wait for sessions to be visible on the screen before running our assertions below.
   await waitFor(() => 
     expect(screen.queryAllByText("studied for", {exact: false}).length).toBeGreaterThan(0)
